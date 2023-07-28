@@ -4,7 +4,7 @@ import { ExampleTable, db, getExampleTable } from "@/lib/drizzle";
 import { useEffect, useState } from "react";
 
 export default function ClientComp() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>();
 
   useEffect(() => {
     fetchData();
@@ -13,8 +13,8 @@ export default function ClientComp() {
   const fetchData = async () => {
     try {
       const result = await getExampleTable();
-      //   setData(result);
       console.log(result);
+      setData(result);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -28,7 +28,7 @@ export default function ClientComp() {
     };
 
     try {
-      await db.insert().into(ExampleTable).values(newUser);
+      await db.insert(ExampleTable).values(newUser);
       console.log("New user added to the database!");
       fetchData();
     } catch (error) {

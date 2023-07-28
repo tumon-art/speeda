@@ -1,12 +1,39 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import { ExampleTable } from "@/lib/drizzle";
 import ClientComp from "./ClientComp";
+import { ExampleTable, db, getExampleTable } from "@/lib/drizzle";
 
 export default async function Home() {
+  // const fetchData = async () => {
+  //   try {
+  //     const result = await getExampleTable();
+  //     console.log(result);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+
+  const addUserToDatabase = async () => {
+    try {
+      await db.insert(ExampleTable).values({
+        name: "John Doe",
+        image: "https://example.com/john-doe-profile-image.jpg",
+      });
+      console.log("New user added to the database!");
+
+      // fetchData();
+    } catch (error) {
+      console.error("Error adding new user:", error);
+    }
+  };
+
+  addUserToDatabase();
+
+  // getExampleTable();
+
   return (
     <main className={styles.main}>
-      <ClientComp />
+      {/* <ClientComp /> */}
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
