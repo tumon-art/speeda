@@ -1,13 +1,12 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { ExampleTable } from "@/lib/drizzle";
+import ClientComp from "./ClientComp";
 
 export default async function Home() {
-  const data = await ExampleTable;
-  console.log(data);
-
   return (
     <main className={styles.main}>
+      <ClientComp />
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
