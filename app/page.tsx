@@ -1,7 +1,9 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import ClientComp from "./ClientComp";
-import { ExampleTable, db, getExampleTable } from "@/lib/drizzle";
+import { ExampleTable, db, getExampleTable } from "@/drizzle/schema";
+import { sql } from "@vercel/postgres";
+import { migrate } from "drizzle-orm/vercel-postgres/migrator";
 
 export default async function Home() {
   // const fetchData = async () => {
@@ -13,23 +15,37 @@ export default async function Home() {
   //   }
   // };
 
-  const addUserToDatabase = async () => {
-    try {
-      await db.insert(ExampleTable).values({
-        name: "John Doe",
-        image: "https://example.com/john-doe-profile-image.jpg",
-      });
-      console.log("New user added to the database!");
+  // const addUserToDatabase = async () => {
+  //   try {
+  //     //       // Create table with raw SQL
+  //     //       const createTable = await sql.query(`
+  //     //   CREATE TABLE IF NOT EXISTS users (
+  //     //     id SERIAL PRIMARY KEY,
+  //     //     name VARCHAR(255) NOT NULL,
+  //     //     image VARCHAR(255),
+  //     //     "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  //     //   );
+  //     // `);
 
-      // fetchData();
-    } catch (error) {
-      console.error("Error adding new user:", error);
-    }
-  };
+  //     //       console.log(`Created "users" table`);
 
-  addUserToDatabase();
+  //     await db.insert(ExampleTable).values({
+  //       name: "John Doe",
+  //       image: "https://example.com/john-doe-profile-image.jpg",
+  //     });
+  //     console.log("New user added to the database!");
+
+  //     // fetchData();
+  //   } catch (error) {
+  //     console.error("Error adding new user:", error);
+  //   }
+  // };
+
+  // addUserToDatabase();
 
   // getExampleTable();
+
+  // await migrate(db, { migrationsFolder: "../lib/migrations" });
 
   return (
     <main className={styles.main}>
