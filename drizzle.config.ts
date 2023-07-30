@@ -15,5 +15,6 @@ export default {
   driver: "pg",
   dbCredentials: {
     connectionString: process.env.POSTGRES_URL,
+    ssl: true,
   },
 } satisfies Config;
